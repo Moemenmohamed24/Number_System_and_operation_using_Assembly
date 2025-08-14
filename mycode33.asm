@@ -13,14 +13,93 @@ cmp al, '1'
 je addition
  
 
-
-
 cmp al, '2'
 je Subtraction
 
-cmp al,3
-jmp exit
+             
+cmp al,'3'
+je Multiplication
 
+
+cmp al,'4'
+je Division
+
+
+;<________________________________________>;  
+Division:
+
+mov dx,offset msg1
+mov ah,9
+INT 21h      
+
+
+call read_num   
+ push ax 
+
+
+mov dx,offset msg2
+mov ah,9
+INT 21h      
+
+
+
+            
+call read_num    
+mov bx,ax   
+pop ax  
+xor dx, dx;we want dx = 0 and ax/bx = 16bit/16bit
+div bx
+         
+         
+mov dx,offset result
+mov ah,9
+INT 21h
+        
+         
+call print_num
+         
+         
+        
+ mov ah, 0
+  int 16h        
+  jmp exit          
+         
+              
+;<________________________________________>;              
+Multiplication:
+
+mov dx,offset msg1
+mov ah,9
+INT 21h
+     
+call read_num
+push ax
+
+      
+mov dx,offset msg2
+mov ah,9
+INT 21h       
+       
+       
+call read_num
+pop bx
+       
+mul bx
+
+     
+mov dx,offset result
+mov ah,9
+INT 21h       
+       
+       
+call print_num       
+       
+       
+ mov ah, 0
+  int 16h        
+  jmp exit      
+       
+           
 ;<________________________________________>;
 Subtraction:  
   
@@ -84,7 +163,12 @@ addition:
     mov ah, 0
     int 16h
     
-    jmp exit
+    jmp exit     
+    
+    
+             
+;cmp al,
+;jmp exit      
 
 read_num:
     mov bx, 0
@@ -129,8 +213,14 @@ print:
 
 menu db 13,10,'Calculator Menu:',13,10,13,10
      db '1. Addition',13,10  
-      db '2. Subtraction',13,10    
-     db '3. Exit',13,10,13,10
+     db '2. Subtraction',13,10    
+     db '3. Multiplication',13,10    
+     db '4. Division',13,10
+     db '5. AND',13,10
+     db '6. OR',13,10
+     db '7. XOR',13,10
+     db '8. NOT',13,10
+     db '9. Exit',13,10
      db 'Choice: $'
      
 msg1 db 13,10,10,'Enter first number: $'
