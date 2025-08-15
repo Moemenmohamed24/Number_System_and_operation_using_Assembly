@@ -24,6 +24,142 @@ je Multiplication
 cmp al,'4'
 je Division
 
+  
+  
+cmp al,5
+je ANDOperation  
+  
+  
+cmp al,6
+je OROperation               
+
+
+cmp al,7
+je XOROperation 
+
+cmp al,8
+je NOTOperation  
+
+    
+;<________________________________________>;     
+cmp al,9
+jmp exit     
+;<________________________________________>;  
+                                                 
+NOTOperation:
+                                                 
+mov dx,offset msg1    
+mov ah,9
+INT 21h
+
+  
+call read_num
+
+NOT ax  
+
+mov dx,offset result
+mov ah,9
+INT 21h   
+     
+         
+call print_num
+        
+ mov ah, 0
+  int 16h        
+  jmp exit 
+
+;<________________________________________>;  
+                                                 
+XOROperation:
+                                                 
+mov dx,offset msg1    
+mov ah,9
+INT 21h
+
+  
+call read_num
+push ax
+
+mov dx,offset msg2
+mov ah,9
+INT 21h      
+
+
+call read_num
+pop bx
+XOR ax,bx
+
+mov dx,offset result
+mov ah,9
+INT 21h   
+     
+         
+call print_num
+        
+ mov ah, 0
+  int 16h        
+  jmp exit 
+;<________________________________________>;  
+OROperation:          
+
+mov dx,offset msg1    
+mov ah,9
+INT 21h
+
+  
+call read_num
+push ax
+
+mov dx,offset msg2
+mov ah,9
+INT 21h      
+
+
+call read_num
+pop bx
+OR ax,bx
+
+mov dx,offset result
+mov ah,9
+INT 21h   
+     
+         
+call print_num
+        
+ mov ah, 0
+  int 16h        
+  jmp exit 
+
+;<________________________________________>;    
+ANDOperation:
+
+mov dx,offset msg1    
+mov ah,9
+INT 21h
+
+  
+call read_num
+push ax
+
+mov dx,offset msg2
+mov ah,9
+INT 21h      
+
+
+call read_num
+pop bx
+AND ax,bx
+
+mov dx,offset result
+mov ah,9
+INT 21h   
+     
+         
+call print_num
+        
+ mov ah, 0
+  int 16h        
+  jmp exit        
 
 ;<________________________________________>;  
 Division:
@@ -57,8 +193,6 @@ INT 21h
         
          
 call print_num
-         
-         
         
  mov ah, 0
   int 16h        
@@ -165,10 +299,7 @@ addition:
     
     jmp exit     
     
-    
-             
-;cmp al,
-;jmp exit      
+
 
 read_num:
     mov bx, 0
